@@ -19,7 +19,32 @@ function insertionSort(arr) {
   */
 
   // Your code here
+
+   let copyArr = arr.slice(); //create a copy of the arr
+   let sorted = []; // create an arr to house the sorted values
+   while(copyArr.length > 0){ // while the arr is not empty
+
+    console.log(sorted.join(","));
+    let tmp = copyArr.pop(); // take a value at the end of the array
+
+    for(let i = sorted.length; i >= 0; i--){
+
+      if (i === 0) { // if we can't find any number greater than tmp
+        sorted.unshift(tmp); // place it at index 0;
+      }
+
+      if (sorted[i - 1] <= tmp){ // if the current value is less than tmp
+        sorted.splice(i, 0, tmp)  // place tmp at that idx and shift the other values to the right.
+        break;
+      }
+    }
+   }
+   return sorted;
 }
+
+
+
+
 
 // In-place Insertion Sort
 // Mutates the original array
@@ -41,6 +66,32 @@ function insertionSortInPlace(arr) {
   */
 
   // Your code here
+  let div = 0
+  let insert;
+   while(div < arr.length){ //
+
+    //console.log(arr.join(","));
+    let tmp = arr[div]; //
+
+    for(let i = div; i >= 0; i--){
+      insert = i;
+
+      if (arr[i - 1] < tmp){ // if the current value is less than tmp(the first arr[i -1] will be undefined)
+        insert = i;  //assign the index to insert and break out of the loop
+        break;
+      }else{
+        arr[i] = arr[i - 1]
+      }
+    }
+    arr.splice(insert,1, tmp);
+    div++;
+    console.log(arr.join(","))
+   }
+   return arr;
+
 }
+
+console.log(insertionSortInPlace([1,2,6,8,3,2]));
+
 
 module.exports = [insertionSort, insertionSortInPlace];
